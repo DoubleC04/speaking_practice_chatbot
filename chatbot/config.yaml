@@ -1,0 +1,33 @@
+project:
+  name: "english_speaking_chatbot"
+  version: "0.1.0"
+
+data:
+  pdf: "data/raw/conversation_en.pdf"
+  csv: "data/processed/english_dict.csv"
+  vector_store: "data/vector_store/chroma_db"
+
+stt:
+  sample_rate: 16000
+  chunk_duration: 3.0
+  model_size: "medium"
+  device: "cpu" 
+  compute_type: "int8"
+  beam_size: 5
+  vad_parameters:
+    threshold: 0.3
+    min_speech_duration_ms: 100 
+
+rag:
+  embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+  llm_model: "english_buddy"
+  chunk_size: 90
+  chunk_overlap: 20
+  retriever_k:
+    simple: 3
+    complex: 7
+  chroma_collection: "speaking_learning"
+
+logging:
+  level: "INFO"
+  file: "logs/app.log"
