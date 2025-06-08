@@ -56,7 +56,7 @@ cover/
 *.pot
 
 # Django stuff:
-*.log
+# *.log
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
@@ -167,6 +167,12 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
+Dockerfile
+docker-compose.yml
+.dockerignore
+init_model.py
+frontend/
+
 # Ruff stuff:
 .ruff_cache/
 
@@ -174,8 +180,14 @@ cython_debug/
 .pypirc
 
 # Data
-data/
+vector_store/
+raw/
 
-models/
-scripts/
+doc/
 
+tests/
+
+temp/
+chatbot_core/
+
+uvicorn
