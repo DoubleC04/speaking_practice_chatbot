@@ -13,7 +13,7 @@ class Generator:
         """
         self.config = load_config("config.yaml")
         self.llm = OllamaLLM(
-            model=self.config["rag"]["llm_model"],
+            model=self.config["ollama"]["model"],
             base_url="http://127.0.0.1:11434"
         )
         self.prompt_template = PromptTemplate(
@@ -24,7 +24,8 @@ class Generator:
             {context}
 
             ---
-            Answer the question based on the above context:
+            Answer the question, based on the above context.
+            But if the question is about identifying the model, respond with the model name and ignore the above context. 
             {question}
             """ 
         )
