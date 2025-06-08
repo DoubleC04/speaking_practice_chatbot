@@ -11,7 +11,7 @@ stt:
   sample_rate: 16000
   chunk_duration: 3.0
   model_size: "medium"
-  device: "cpu" 
+  device: "cpu" # 'cuda'
   compute_type: "int8"
   beam_size: 5
   vad_parameters:
@@ -20,7 +20,6 @@ stt:
 
 rag:
   embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
-  llm_model: "english_buddy"
   chunk_size: 90
   chunk_overlap: 20
   retriever_k:
@@ -31,3 +30,7 @@ rag:
 logging:
   level: "INFO"
   file: "logs/app.log"
+
+ollama:
+  host: "http://ollama:11434"
+  model: "english_buddy"
