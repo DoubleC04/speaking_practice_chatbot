@@ -1,6 +1,7 @@
 from src.tts.csm.generator import load_csm_1b, Segment
 import torchaudio
 import torch
+import re
 
 class TTSProcessor:
     def __init__(self, device=None):
@@ -38,6 +39,36 @@ class TTSProcessor:
         audio_length_ms = word_count * ms_per_word
         
         return audio_length_ms
+    
+    def preprocess_text(self, text):
+        """
+        Preprocesses raw text and splits it into cleaned sentences.
+
+        This method performs the following steps:
+        - Removes HTML tags and unwanted special characters.
+        - Normalizes whitespace by replacing multiple spaces with a single space.
+        - Converts all characters to lowercase.
+        - Splits the text into individual sentences using punctuation marks (. ! ?).
+
+        Args:
+            text (str): The input raw text to preprocess.
+
+        Returns:
+            list[str]: A list of cleaned and lowercased sentences.
+        """
+        html_and_special_chars = re.compile(r'<[^>]+>|[^\w\s.,!?]')
+        whitespace = re.compile(r'\s+')
+        sentence_splitter = re.compile(r'[.!?]+')
+
+        text = html_and_special_chars.sub('', text)
+        
+        text = whitespace.sub(' ', text).strip()
+        
+        text = text.lower()
+        
+        sentences = [s.strip() for s in sentence_splitter.split(text) if s.strip()]
+        
+        return sentences
 
     def generate_audio(self, text, speaker, context=None):
         """
@@ -53,17 +84,23 @@ class TTSProcessor:
         """
         
         audio_length_ms = self.estimate_audio_length_ms(text=text)
+        sentences = self.preprocess_text(text)
         
-        with torch.inference_mode():
-            audio = self.generator.generate(
-                text=text,
-                speaker=speaker,
-                context=context or [],
-                max_audio_length_ms=audio_length_ms,
-                skip_watermark=False
-            )
-
-        return audio
+        audio_segments = []
+        for sentence in sentences:
+            with torch.inference_mode():
+                audio = self.generator.generate(
+                    text=sentence,
+                    speaker=speaker,
+                    context=context or [],
+                    max_audio_length_ms=audio_length_ms,
+                    skip_watermark=True
+                )
+            audio_segments.append(audio)
+        
+        if audio_segments:
+            return torch.cat(audio_segments, dim=-1)
+        return torch.tensor([])
 
     def save_audio(self, file_path, audio, sample_rate):
         """
