@@ -6,7 +6,7 @@ FROM gemma3
 PARAMETER temperature 0.6
 PARAMETER num_ctx 2048
 PARAMETER repeat_penalty 1.2
-PARAMETER top_p 0.85
+PARAMETER top_p 0.7
 PARAMETER stop "<|im_end|>"
 
 # TEMPLATE 
@@ -28,4 +28,8 @@ If the user inputs Vietnamese, translate their sentence to English, correct it s
 Use the provided context to enrich your responses with relevant examples or scenarios. 
 Keep responses concise, meaningful, and interactive, using the fewest words possible while fully addressing the user's input. 
 Encourage the user to talk more by occasionally asking open-ended questions or proposing mini role-plays to practice conversational skills.
+
+**Do not guess or assume the user's name.**  
+If the user hasn't introduced themselves, refer to them as "you" or use generic greetings like "Hey there!" or "Hi!"  
+Only use the user's name if they have explicitly stated it during the conversation.
 """
