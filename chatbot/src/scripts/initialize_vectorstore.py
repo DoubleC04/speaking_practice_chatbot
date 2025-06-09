@@ -15,7 +15,7 @@ else:
     print("PDF files:", pdf_paths)
     print("CSV files:", csv_paths)
     
-    vector_store_manager.initialize_vectorstore(pdf_paths)
+    vector_store_manager.initialize_vectorstore(pdf_paths, csv_paths)
 
 
 

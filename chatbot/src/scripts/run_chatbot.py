@@ -21,7 +21,7 @@ except Exception as e:
     sys.exit(1)
     
     
-speakers = [6, 6, 6, 6]
+speakers = [6, 6, 6, 6, 6]
 transcripts = [
     "Excuse me.",
     "Where do I find him.",
@@ -38,6 +38,8 @@ audio_paths = [
 ]
 
 segment = tts_processor.create_segments(transcripts, speakers, audio_paths)
+
+i = 0
 
 while True:
     question = stt.run()
@@ -62,13 +64,15 @@ while True:
         context=segment
     )
     
-    audio_path = "chatbot_00.wav"
+    audio_path = f"chatbot_{i}.wav"
 
     tts_processor.save_audio(audio_path, audio, tts_processor.generator.sample_rate)
 
     sample_rate, data = wavfile.read(audio_path)
 
     sd.play(data, sample_rate)
+    
+    i = i + 1
     sd.wait()
     
     time.sleep(1)
