@@ -82,6 +82,8 @@ python -m src/scripts/initialize_vectorstore.py
 > 💡 **Note:**  
 You can add more learning materials by placing `.csv` and `.pdf` files into the `data/csv` and `data/pdf` directories, respectively. The vector store will index these documents for use in conversation.
 
+**Currently, the project only supports CSV and PDF file formats.**
+
 6. **Run the application:**
 
 ```bash
@@ -93,6 +95,7 @@ python -m src/scripts/run_chatbot.py
 ## Future Development
 In the future, the chatbot will be enhanced with the following features:
 - 🌐 **Web Deployment**: Deploy the chatbot on the web for easier accessibility and a wider user base.
+- 📁 **Expanded File Format Support**: Add support for a wider variety of document types.
 - 🏆 **User Proficiency Assessment**: Automatically evaluate learners’ English proficiency level through interactive tests and conversation analysis.
 - 🎓 **Exam Preparation Support**: Provide targeted practice and guidance for popular English exams such as IELTS, TOEIC.
 - 🌍 **Multilingual Support**: Expand the chatbot’s capabilities to support multiple languages, enabling learners from diverse backgrounds to practice and improve in their native languages as well as in English.
