@@ -99,5 +99,3 @@ In the future, the chatbot will be enhanced with the following features:
 
 
 **Happy English practicing with EnglishBuddy! 🇬🇧🧠**
-
-
